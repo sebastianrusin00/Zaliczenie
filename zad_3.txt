@@ -1,0 +1,63 @@
+import random
+
+# Funkcja generująca tablicę liczb będących wielokrotnościami trójki z dowolnego przedziału
+def generate_multiples_of_three_array(size):
+    multiples_of_three_array = [random.randint(1, 100) * 3 for _ in range(size)]
+    return multiples_of_three_array
+
+# Funkcja filtrowania liczby będących wielokrotnościami trójki, piątki lub szóstki
+def filter_multiples_of_three_five_six(array):
+    filtered_array = [num for num in array if num % 3 == 0 or num % 5 == 0 or num % 6 == 0]
+    return filtered_array
+
+# Funkcja znajdująca sumę, najmniejszą i największą wartość w tablicy
+def calculate_sum_min_max(array):
+    array_sum = sum(array)
+    min_value = min(array)
+    max_value = max(array)
+    return array_sum, min_value, max_value
+
+# Wywołanie funkcji i wypisanie wyników
+random_array = generate_multiples_of_three_array(10)
+print("Wygenerowana tablica wielokrotności trójki:")
+print(random_array)
+
+filtered_array = filter_multiples_of_three_five_six(random_array)
+print("\nTablica zawierająca wielokrotności trójki, piątki lub szóstki:")
+print(filtered_array)
+
+combined_array = random_array + filtered_array
+array_sum, min_value, max_value = calculate_sum_min_max(combined_array)
+print("\nPołączona tablica:")
+print(combined_array)
+print("\nSuma elementów:", array_sum)
+print("Najmniejsza wartość:", min_value)
+print("Największa wartość:", max_value)
+
+# Funkcja sprawdzająca, czy liczba należy do ciągu Sn = n(n+1)/2
+def is_in_sequence(num):
+    n = 0
+    while True:
+        term = n * (n + 1) // 2
+        if term == num:
+            return True
+        elif term > num:
+            return False
+        n += 1
+
+# Sprawdzenie, które elementy z tablicy należą do ciągu
+def check_sequence_in_array(array):
+    sequence_elements = []
+    for num in array:
+        if is_in_sequence(num):
+            sequence_elements.append(num)
+    return sequence_elements
+
+# Przykładowa tablica
+combined_array = [1, 3, 6, 10, 15, 21, 28, 36]
+
+# Sprawdzenie, które elementy tablicy należą do ciągu
+sequence_elements = check_sequence_in_array(combined_array)
+print("Elementy tablicy należące do ciągu:")
+print(sequence_elements)
+
