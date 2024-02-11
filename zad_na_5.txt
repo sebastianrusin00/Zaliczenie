@@ -1,0 +1,56 @@
+import random
+
+# Tablice zdeklarowane globalnie
+authors = ["Ernest", "Jan", "Diego", "Alice", "Emma"]
+titles = ["Batman", "Superman", "Xman", "Spiderman", "Ironman"]
+
+# Funkcja wypełniająca listę słownikami
+def fill_dictionary_list(size):
+    dictionary_list = []
+    author_counts = {author: 0 for author in authors}
+    title_counts = {title: 0 for title in titles}
+
+    for _ in range(size):
+        author = random.choice(authors)
+        title = random.choice(titles)
+        year = random.randint(1960, 2022)
+        code = ''.join([chr(random.randint(65, 90)) for _ in range(3)]) + str(random.randint(10000, 99999))
+        dictionary_list.append({'author': author, 'title': title, 'year': year, 'code': code})
+
+        author_counts[author] += 1
+        title_counts[title] += 1
+
+    return dictionary_list, author_counts, title_counts
+
+# Funkcja zwracająca autora i tytuł, który wystąpił najczęściej
+def most_common_item(counts):
+    max_count = max(counts.values())
+    most_common_items = [item for item, count in counts.items() if count == max_count]
+    return most_common_items
+
+# Funkcja sprawdzająca, które tytuły zostały wydane w roku przestępnym
+def leap_year_titles(dictionary_list):
+    leap_year_titles = [item['title'] for item in dictionary_list if item['year'] % 4 == 0 and (item['year'] % 100 != 0 or item['year'] % 400 == 0)]
+    return leap_year_titles
+
+# Wypełnienie listy słownikami
+dictionary_list, author_counts, title_counts = fill_dictionary_list(20)
+
+# Wyświetlenie rezultatów
+print("Lista słowników:")
+for item in dictionary_list:
+    print(item)
+
+print("\nIlość wystąpień każdego autora:")
+for author, count in author_counts.items():
+    print(f"{author}: {count}")
+
+print("\nIlość wystąpień każdego tytułu:")
+for title, count in title_counts.items():
+    print(f"{title}: {count}")
+
+print("\nAutorzy, którzy wystąpili najczęściej:")
+print(most_common_item(author_counts))
+
+print("\nTytuły, które zostały wydane w roku przestępnym:")
+print(leap_year_titles(dictionary_list))
